@@ -25,10 +25,12 @@ jobs:
       - name: Make application.yml
         run: |
           cd ./src/main/resources
+          touch application.yml
           echo "${{ secrets.APPLICATION }} > ./application.yml
 
       - name: Make .env
         run: |
+          touch .env
           echo "${{ secrets.ENV }} > .env
 
       - name: Build with Gradle
