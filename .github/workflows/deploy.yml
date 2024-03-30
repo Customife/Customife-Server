@@ -1,0 +1,56 @@
+name: CD with Gradle
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+  step:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+          java-version: '17'
+          distribution: "adopt"
+
+    - name: Make application.yml
+      run: |
+        cd ./src/main/resources
+        echo "${{ secrets.APPLICATION }} > ./application.yml
+
+    - name: Make .env
+      run: |
+        echo "${{ secrets.ENV }} > .env
+
+    - name: Build with Gradle
+      run: |
+        chmod +x ./gradlew
+        ./gradlew bootJar -Pprofile:prod
+
+    - name: Docker login
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/customife .
+        docker push ${{ secrets.DOCKER_USERNAME }}/customife:latest
+
+    - name: Build Docker Image
+      uses: appleboy/ssh-action@master
+      id: deploy
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+      script: |
+        sudo docker rm -f $(docker ps -qa)
+        sudo docker pull ${{ secrets.DOCKER_USERNAME }}/customife
+        docker-compose up -d
+        docker image prune -f
