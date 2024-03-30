@@ -26,12 +26,12 @@ jobs:
         run: |
           mkdir ./src/main/resources
           touch ./src/main/resources/application.yml
-          echo "${{ secrets.APPLICATION }} > ./src/main/resources/application.yml
+          echo ${{ secrets.APPLICATION }} > ./src/main/resources/application.yml
 
       - name: Make .env
         run: |
           touch .env
-          echo "${{ secrets.ENV }} > .env
+          echo ${{ secrets.ENV }} > .env
 
       - name: Build with Gradle
         run: |
