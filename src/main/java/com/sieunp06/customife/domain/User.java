@@ -6,10 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter
@@ -31,18 +32,16 @@ public class User {
 
     @CreatedDate
     @Column(name = "user_created_at", nullable = false)
-    private Date createdAt;         // 가입일
+    private LocalDate createdAt;         // 가입일
 
     protected User() {}
 
+    @Builder
     private User(String userEmail, String userPassword, String userNickName) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userNickName = userNickName;
-    }
-
-    public static User of(String userEmail, String userPassword, String userNickName) {
-        return new User(userEmail, userPassword, userNickName);
+        this.createdAt = LocalDate.now();
     }
 
     @Override
