@@ -1,4 +1,4 @@
-package com.sieunp06.customife.dto.response;
+package com.sieunp06.customife.dto.response.user;
 
 import com.sieunp06.customife.domain.User;
 import lombok.Builder;

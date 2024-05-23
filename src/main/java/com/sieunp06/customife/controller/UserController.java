@@ -1,7 +1,7 @@
 package com.sieunp06.customife.controller;
 
-import com.sieunp06.customife.dto.request.User.UserSignupDto;
-import com.sieunp06.customife.dto.response.UserResponseDto;
+import com.sieunp06.customife.dto.request.user.UserSignupDto;
+import com.sieunp06.customife.dto.response.user.UserResponseDto;
 import com.sieunp06.customife.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

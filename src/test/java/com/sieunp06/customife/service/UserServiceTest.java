@@ -1,7 +1,7 @@
 package com.sieunp06.customife.service;
 
 import com.sieunp06.customife.domain.User;
-import com.sieunp06.customife.dto.request.User.UserSignupDto;
+import com.sieunp06.customife.dto.request.user.UserSignupDto;
 import com.sieunp06.customife.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
