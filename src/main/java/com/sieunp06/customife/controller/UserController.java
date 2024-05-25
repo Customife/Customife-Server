@@ -1,7 +1,9 @@
 package com.sieunp06.customife.controller;
 
+import com.sieunp06.customife.dto.request.user.UserLoginDto;
 import com.sieunp06.customife.dto.request.user.UserSignupDto;
 import com.sieunp06.customife.dto.response.user.UserResponseDto;
+import com.sieunp06.customife.dto.response.user.UserTokenDto;
 import com.sieunp06.customife.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,5 +23,11 @@ public class UserController {
     public ResponseEntity<UserResponseDto> signup(@RequestBody UserSignupDto userSignupDto) {
         UserResponseDto userResponseDto = userService.signup(userSignupDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserTokenDto> login(@RequestBody UserLoginDto userLoginDto) {
+        UserTokenDto userTokenDto = userService.login(userLoginDto);
+        return ResponseEntity.status(HttpStatus.OK).body(userTokenDto);
     }
 }
