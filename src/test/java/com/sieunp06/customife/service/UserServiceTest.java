@@ -36,7 +36,7 @@ class UserServiceTest {
     @Test
     void signup() throws Exception {
         // Given
-        UserSignupDto userSignupDto = createUserDto();
+        UserSignupDto userSignupDto = createSignUserDto();
         User user = createUser();
 
         given(userRepository.save(any(User.class)))
@@ -56,7 +56,7 @@ class UserServiceTest {
     @Test
     void signup_duplicate_user() throws Exception {
         // Given
-        UserSignupDto userSignupDto = createUserDto();
+        UserSignupDto userSignupDto = createSignUserDto();
         User user = createUser();
 
         given(userRepository.save(any(User.class)))
@@ -73,7 +73,17 @@ class UserServiceTest {
                 .hasMessageContaining("이미 존재하는 회원입니다.");
     }
 
-    private static UserSignupDto createUserDto() {
+    @Test
+    void login() throws Exception {
+        // Given
+
+
+        // When
+
+        // Then
+    }
+
+    private static UserSignupDto createSignUserDto() {
         return UserSignupDto.builder()
                 .userEmail("test@email.com")
                 .userPassword("test1234")
