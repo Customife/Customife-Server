@@ -72,17 +72,7 @@ class UserServiceTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("이미 존재하는 회원입니다.");
     }
-
-    @Test
-    void login() throws Exception {
-        // Given
-
-
-        // When
-
-        // Then
-    }
-
+    
     private static UserSignupDto createSignUserDto() {
         return UserSignupDto.builder()
                 .userEmail("test@email.com")
