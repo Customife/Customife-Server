@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +32,15 @@ public class User implements UserDetails {
 
     @Column(name = "user_password", nullable = false)
     private String userPassword;    // 유저 비밀번호
+
+    @OneToMany(mappedBy = "categoryId")
+    private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tagId")
+    private List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "eventId")
+    private List<Event> events = new ArrayList<>();
 
     @Column(name = "user_nickname", nullable = false)
     private String userNickName;    // 유저 닉네임
