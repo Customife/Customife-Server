@@ -9,7 +9,6 @@ import com.sieunp06.customife.dto.response.user.UserResponseDto;
 import com.sieunp06.customife.dto.response.user.UserTokenDto;
 import com.sieunp06.customife.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -38,11 +37,10 @@ public class UserService {
         validateDuplicateUser(userEmail);
 
         User savedUser = userRepository.save(User.builder()
-                .userEmail(userEmail)
-                .userPassword(encodedPassword)
-                .userNickName(userNickName)
-                .build());
-
+                        .userEmail(userEmail)
+                        .userPassword(encodedPassword)
+                        .userNickName(userNickName)
+                        .build());
         return UserResponseDto.from(savedUser);
     }
 
