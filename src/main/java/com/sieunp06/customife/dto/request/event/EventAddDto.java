@@ -1,23 +1,26 @@
 package com.sieunp06.customife.dto.request.event;
 
-import com.sieunp06.customife.domain.Category;
-import com.sieunp06.customife.domain.Milestone;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Getter
 public class EventAddDto {
-    private Category category;
-    private Milestone milestone;
+    private String category;
+    private String milestone;
     private String content;
-    private Date startDate;
-    private Date endDate;
     private String memo;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
+
     @Builder
-    private EventAddDto(Category category, Milestone milestone,
+    private EventAddDto(String category, String milestone,
                         String content,
                         Date startDate, Date endDate,
                         String memo) {

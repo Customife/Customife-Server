@@ -31,6 +31,11 @@ public class CategoryService {
         return CategoryResponseDto.from(category);
     }
 
+    public Category findCategory(String name) {
+        return categoryRepository.findByName(name)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
     public CategoryResponseDto addCategory(CategoryDto categoryDto, User user) {
         validateDuplicatedName(categoryDto.getName());
         Category category = categoryRepository.save(Category.builder()

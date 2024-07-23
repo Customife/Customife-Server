@@ -38,10 +38,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "milestoneId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Milestone> milestones = new ArrayList<>();
+
     @OneToMany(mappedBy = "tagId")
     private List<Tag> tags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "eventId")
+    @OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Event> events = new ArrayList<>();
 
     @Column(name = "user_nickname", nullable = false)

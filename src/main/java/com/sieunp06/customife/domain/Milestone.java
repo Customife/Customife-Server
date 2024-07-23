@@ -2,6 +2,7 @@ package com.sieunp06.customife.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +25,7 @@ public class Milestone {
     @Column(name = "milestone_id")
     private Long milestoneId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -34,16 +35,21 @@ public class Milestone {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public void update(String name) {
+    @Column(name = "color_code", nullable = false)
+    private String colorCode;
+
+    public void update(String name, String colorCode) {
         this.name = name;
+        this.colorCode = colorCode;
     }
 
     protected Milestone() {}
 
     @Builder
-    private Milestone(User user, String name) {
+    private Milestone(User user, String name, String colorCode) {
         this.user = user;
         this.name = name;
+        this.colorCode = colorCode;
     }
 
     @Override

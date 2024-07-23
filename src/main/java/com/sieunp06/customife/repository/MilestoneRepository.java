@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
     List<Milestone> findByUser(User user);
+    Optional<Milestone> findByName(String name);
     Optional<Milestone> findByUserAndName(User user, String name);
 }

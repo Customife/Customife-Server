@@ -4,6 +4,8 @@ import com.sieunp06.customife.domain.Category;
 import com.sieunp06.customife.domain.Event;
 import com.sieunp06.customife.domain.EventTag;
 import com.sieunp06.customife.domain.Milestone;
+import com.sieunp06.customife.dto.response.category.CategoryResponseDto;
+import com.sieunp06.customife.dto.response.milestone.MilestoneResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,9 +14,9 @@ import java.util.List;
 
 @Getter
 public class EventResponseDto {
-    private Category category;
+    private CategoryResponseDto category;
     private List<EventTag> eventTags;
-    private Milestone milestone;
+    private MilestoneResponseDto milestone;
     private String content;
     private Date startDate;
     private Date endDate;
@@ -26,9 +28,9 @@ public class EventResponseDto {
                              String content,
                              Date startDate, Date endDate,
                              String memo) {
-        this.category = category;
+        this.category = CategoryResponseDto.from(category);
         this.eventTags = eventTags;
-        this.milestone = milestone;
+        this.milestone = MilestoneResponseDto.from(milestone);
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -24,11 +24,17 @@ public class MilestoneService {
                 .collect(Collectors.toList());
     }
 
+    public Milestone findMilestone(String name) {
+        return milestoneRepository.findByName(name)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
     public MilestoneResponseDto addMilestone(User user, MilestoneDto milestoneDto) {
         validateName(user, milestoneDto.getName());
         Milestone milestone = milestoneRepository.save(Milestone.builder()
                         .user(user)
                         .name(milestoneDto.getName())
+                        .colorCode(milestoneDto.getColorCode())
                         .build());
         return MilestoneResponseDto.from(milestone);
     }
@@ -37,7 +43,7 @@ public class MilestoneService {
         Milestone milestone = milestoneRepository.findById(milestoneId)
                 .orElseThrow(IllegalArgumentException::new);
         validateUser(user, milestone.getUser());
-        milestone.update(milestoneDto.getName());
+        milestone.update(milestoneDto.getName(), milestoneDto.getColorCode());
         return MilestoneResponseDto.from(milestone);
     }
 
@@ -49,6 +55,7 @@ public class MilestoneService {
     }
 
     private void validateName(User user, String name) {
+        System.out.println(milestoneRepository.findByUserAndName(user, name));
         milestoneRepository.findByUserAndName(user, name)
                 .ifPresent(error -> {
                     throw new IllegalArgumentException("이미 존재하는 마일스톤입니다.");
