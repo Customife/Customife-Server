@@ -29,7 +29,7 @@ public class Category {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "eventId")
+    @OneToMany(mappedBy = "scheduleId")
     private List<Schedule> schedules = new ArrayList<>();
 
     @Column(name = "name", nullable = false)

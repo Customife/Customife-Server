@@ -17,7 +17,7 @@ public class EventTag {
     private Long eventTagId;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
     @ManyToOne
