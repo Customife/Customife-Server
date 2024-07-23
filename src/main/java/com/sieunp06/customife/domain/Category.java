@@ -32,6 +32,9 @@ public class Category {
     @OneToMany(mappedBy = "scheduleId")
     private List<Schedule> schedules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "todoId")
+    private List<Todo> todos = new ArrayList<>();
+
     @Column(name = "name", nullable = false)
     private String name;
 

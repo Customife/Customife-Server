@@ -44,6 +44,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "scheduleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Schedule> schedules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "todoId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Todo> todos = new ArrayList<>();
+
     @Column(name = "user_nickname", nullable = false)
     private String userNickName;    // 유저 닉네임
 
