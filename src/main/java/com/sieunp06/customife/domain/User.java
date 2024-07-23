@@ -41,9 +41,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "milestoneId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Milestone> milestones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tagId")
-    private List<Tag> tags = new ArrayList<>();
-
     @OneToMany(mappedBy = "scheduleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Schedule> schedules = new ArrayList<>();
 

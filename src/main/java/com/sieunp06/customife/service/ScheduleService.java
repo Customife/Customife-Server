@@ -2,7 +2,6 @@ package com.sieunp06.customife.service;
 
 import com.sieunp06.customife.domain.Category;
 import com.sieunp06.customife.domain.Schedule;
-import com.sieunp06.customife.domain.Milestone;
 import com.sieunp06.customife.domain.User;
 import com.sieunp06.customife.dto.request.schedule.ScheduleAddDto;
 import com.sieunp06.customife.dto.request.schedule.ScheduleUpdateDto;
@@ -32,15 +31,12 @@ public class ScheduleService {
 
     public ScheduleResponseDto addSchedule(ScheduleAddDto scheduleAddDto, User user) {
         Category category = categoryService.findCategory(scheduleAddDto.getCategory());
-        Milestone milestone = milestoneService.findMilestone(scheduleAddDto.getMilestone());
         Schedule schedule = scheduleRepository.save(Schedule.builder()
                         .user(user)
                         .category(category)
-                        .milestone(milestone)
                         .content(scheduleAddDto.getContent())
                         .startDate(scheduleAddDto.getStartDate())
                         .endDate(scheduleAddDto.getEndDate())
-                        .memo(scheduleAddDto.getMemo())
                         .build());
         return ScheduleResponseDto.from(schedule);
     }
@@ -51,7 +47,6 @@ public class ScheduleService {
         validateUser(user, schedule.getUser());
         ScheduleUpdateDto scheduleUpdateDto = ScheduleUpdateDto.builder()
                 .category(categoryService.findCategory(scheduleAddDto.getCategory()))
-                .milestone(milestoneService.findMilestone(scheduleAddDto.getMilestone()))
                 .content(scheduleAddDto.getContent())
                 .startDate(scheduleAddDto.getStartDate())
                 .endDate(scheduleAddDto.getEndDate())

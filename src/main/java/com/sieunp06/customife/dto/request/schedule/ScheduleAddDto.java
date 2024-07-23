@@ -9,9 +9,7 @@ import java.util.Date;
 @Getter
 public class ScheduleAddDto {
     private String category;
-    private String milestone;
     private String content;
-    private String memo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
@@ -20,15 +18,12 @@ public class ScheduleAddDto {
     private Date endDate;
 
     @Builder
-    private ScheduleAddDto(String category, String milestone,
+    private ScheduleAddDto(String category,
                            String content,
-                           Date startDate, Date endDate,
-                           String memo) {
+                           Date startDate, Date endDate) {
         this.category = category;
-        this.milestone = milestone;
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.memo = memo;
     }
 }
