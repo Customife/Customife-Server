@@ -1,4 +1,4 @@
-package com.sieunp06.customife.dto.request.event;
+package com.sieunp06.customife.dto.request.schedule;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Getter
-public class EventAddDto {
+public class ScheduleAddDto {
     private String category;
     private String milestone;
     private String content;
@@ -20,10 +20,10 @@ public class EventAddDto {
     private Date endDate;
 
     @Builder
-    private EventAddDto(String category, String milestone,
-                        String content,
-                        Date startDate, Date endDate,
-                        String memo) {
+    private ScheduleAddDto(String category, String milestone,
+                           String content,
+                           Date startDate, Date endDate,
+                           String memo) {
         this.category = category;
         this.milestone = milestone;
         this.content = content;

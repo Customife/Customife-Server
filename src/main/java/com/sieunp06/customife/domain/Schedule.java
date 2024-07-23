@@ -1,6 +1,6 @@
 package com.sieunp06.customife.domain;
 
-import com.sieunp06.customife.dto.request.event.EventUpdateDto;
+import com.sieunp06.customife.dto.request.schedule.ScheduleUpdateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-@Table(name = "event")
+@Table(name = "schedule")
 @Entity
-public class Event {
+public class Schedule {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_id")
-    private Long eventId;
+    @Column(name = "schedule_id")
+    private Long scheduleId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -57,20 +57,20 @@ public class Event {
     @Column(name = "memo")
     private String memo;            // 메모
 
-    public void update(EventUpdateDto eventUpdateDto) {
-        this.category = eventUpdateDto.getCategory();
+    public void update(ScheduleUpdateDto scheduleUpdateDto) {
+        this.category = scheduleUpdateDto.getCategory();
     }
 
-    protected Event() {}
+    protected Schedule() {}
 
     @Builder
-    private Event(User user,
-                  Category category,
-                  Milestone milestone,
-                  String content,
-                  boolean isCompleted,
-                  Date startDate, Date endDate,
-                  String memo) {
+    private Schedule(User user,
+                     Category category,
+                     Milestone milestone,
+                     String content,
+                     boolean isCompleted,
+                     Date startDate, Date endDate,
+                     String memo) {
         this.user = user;
         this.category = category;
         this.milestone = milestone;
@@ -84,12 +84,12 @@ public class Event {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Event event)) return false;
-        return Objects.equals(eventId, event.getEventId());
+        if (!(o instanceof Schedule schedule)) return false;
+        return Objects.equals(scheduleId, schedule.getScheduleId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(eventId);
+        return Objects.hashCode(scheduleId);
     }
 }

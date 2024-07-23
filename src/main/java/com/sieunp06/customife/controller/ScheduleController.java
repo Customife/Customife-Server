@@ -1,9 +1,9 @@
 package com.sieunp06.customife.controller;
 
 import com.sieunp06.customife.domain.User;
-import com.sieunp06.customife.dto.request.event.EventAddDto;
-import com.sieunp06.customife.dto.response.event.EventResponseDto;
-import com.sieunp06.customife.service.EventService;
+import com.sieunp06.customife.dto.request.schedule.ScheduleAddDto;
+import com.sieunp06.customife.dto.response.schedule.ScheduleResponseDto;
+import com.sieunp06.customife.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,35 +22,35 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/event")
-public class EventController {
-    private final EventService eventService;
+public class ScheduleController {
+    private final ScheduleService scheduleService;
 
     @GetMapping("/get")
-    public ResponseEntity<List<EventResponseDto>> getEvent(@AuthenticationPrincipal User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEvents(user));
+    public ResponseEntity<List<ScheduleResponseDto>> getSchedule(@AuthenticationPrincipal User user) {
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getSchedules(user));
     }
 
     @PostMapping("/add")
-    public ResponseEntity<EventResponseDto> addEvent(
-            @RequestBody EventAddDto eventAddDto,
+    public ResponseEntity<ScheduleResponseDto> addSchedule(
+            @RequestBody ScheduleAddDto scheduleAddDto,
             @AuthenticationPrincipal User user) {
-        EventResponseDto eventResponseDto = eventService.addEvent(eventAddDto, user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(eventResponseDto);
+        ScheduleResponseDto scheduleResponseDto = scheduleService.addSchedule(scheduleAddDto, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleResponseDto);
     }
 
     @PatchMapping("/{eventId}/update")
-    public ResponseEntity<EventResponseDto> updateEvent(
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @AuthenticationPrincipal User user,
-            @PathVariable Long eventId,
-            @RequestBody EventAddDto eventAddDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.updateEvent(user, eventId, eventAddDto));
+            @PathVariable Long scheduleId,
+            @RequestBody ScheduleAddDto scheduleAddDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(user, scheduleId, scheduleAddDto));
     }
 
     @DeleteMapping("/{eventId}/delete")
-    public ResponseEntity<Long> deleteEvent(
+    public ResponseEntity<Long> deleteSchedule(
             @AuthenticationPrincipal User user,
-            @PathVariable Long eventId) {
-        eventService.deleteEvent(user, eventId);
+            @PathVariable Long scheduleId) {
+        scheduleService.deleteSchedule(user, scheduleId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

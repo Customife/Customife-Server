@@ -1,4 +1,4 @@
-package com.sieunp06.customife.dto.request.event;
+package com.sieunp06.customife.dto.request.schedule;
 
 import com.sieunp06.customife.domain.Category;
 import com.sieunp06.customife.domain.Milestone;
@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.util.Date;
 
 @Getter
-public class EventUpdateDto {
+public class ScheduleUpdateDto {
     private Category category;
     private Milestone milestone;
     private String content;
@@ -17,9 +17,9 @@ public class EventUpdateDto {
     private String memo;
 
     @Builder
-    private EventUpdateDto(Category category, Milestone milestone,
-                           String content, String memo,
-                           Date startDate, Date endDate) {
+    private ScheduleUpdateDto(Category category, Milestone milestone,
+                              String content, String memo,
+                              Date startDate, Date endDate) {
         this.category = category;
         this.milestone = milestone;
         this.content = content;

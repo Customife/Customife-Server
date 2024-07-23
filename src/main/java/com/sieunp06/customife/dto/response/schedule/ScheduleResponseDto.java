@@ -1,7 +1,7 @@
-package com.sieunp06.customife.dto.response.event;
+package com.sieunp06.customife.dto.response.schedule;
 
 import com.sieunp06.customife.domain.Category;
-import com.sieunp06.customife.domain.Event;
+import com.sieunp06.customife.domain.Schedule;
 import com.sieunp06.customife.domain.EventTag;
 import com.sieunp06.customife.domain.Milestone;
 import com.sieunp06.customife.dto.response.category.CategoryResponseDto;
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
-public class EventResponseDto {
+public class ScheduleResponseDto {
     private CategoryResponseDto category;
     private List<EventTag> eventTags;
     private MilestoneResponseDto milestone;
@@ -23,11 +23,11 @@ public class EventResponseDto {
     private String memo;
 
     @Builder
-    private EventResponseDto(Category category, Milestone milestone,
-                             List<EventTag> eventTags,
-                             String content,
-                             Date startDate, Date endDate,
-                             String memo) {
+    private ScheduleResponseDto(Category category, Milestone milestone,
+                                List<EventTag> eventTags,
+                                String content,
+                                Date startDate, Date endDate,
+                                String memo) {
         this.category = CategoryResponseDto.from(category);
         this.eventTags = eventTags;
         this.milestone = MilestoneResponseDto.from(milestone);
@@ -37,15 +37,15 @@ public class EventResponseDto {
         this.memo = memo;
     }
 
-    public static EventResponseDto from(Event event) {
-        return EventResponseDto.builder()
-                .category(event.getCategory())
-                .eventTags(event.getEventTags())
-                .milestone(event.getMilestone())
-                .content(event.getContent())
-                .startDate(event.getStartDate())
-                .endDate(event.getEndDate())
-                .memo(event.getMemo())
+    public static ScheduleResponseDto from(Schedule schedule) {
+        return ScheduleResponseDto.builder()
+                .category(schedule.getCategory())
+                .eventTags(schedule.getEventTags())
+                .milestone(schedule.getMilestone())
+                .content(schedule.getContent())
+                .startDate(schedule.getStartDate())
+                .endDate(schedule.getEndDate())
+                .memo(schedule.getMemo())
                 .build();
     }
 }

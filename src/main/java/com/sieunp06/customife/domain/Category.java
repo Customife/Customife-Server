@@ -30,7 +30,7 @@ public class Category {
     private User user;
 
     @OneToMany(mappedBy = "eventId")
-    private List<Event> events = new ArrayList<>();
+    private List<Schedule> schedules = new ArrayList<>();
 
     @Column(name = "name", nullable = false)
     private String name;
