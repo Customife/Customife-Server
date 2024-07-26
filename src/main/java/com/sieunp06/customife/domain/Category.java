@@ -2,6 +2,7 @@ package com.sieunp06.customife.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,18 +25,26 @@ public class Category {
     @Column(name = "category_id")
     private Long categoryId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "eventId")
-    private List<Event> events = new ArrayList<>();
+    @OneToMany(mappedBy = "scheduleId")
+    private List<Schedule> schedules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "todoId")
+    private List<Todo> todos = new ArrayList<>();
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "colorCode", nullable = false)
     private String colorCode;
+
+    public void update(String name, String colorCode) {
+        this.name = name;
+        this.colorCode = colorCode;
+    }
 
     protected Category() {}
 

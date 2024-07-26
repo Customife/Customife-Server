@@ -1,7 +1,9 @@
 package com.sieunp06.customife.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,14 +35,17 @@ public class User implements UserDetails {
     @Column(name = "user_password", nullable = false)
     private String userPassword;    // 유저 비밀번호
 
-    @OneToMany(mappedBy = "categoryId")
+    @OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tagId")
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "milestoneId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Milestone> milestones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "eventId")
-    private List<Event> events = new ArrayList<>();
+    @OneToMany(mappedBy = "scheduleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Schedule> schedules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "todoId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Todo> todos = new ArrayList<>();
 
     @Column(name = "user_nickname", nullable = false)
     private String userNickName;    // 유저 닉네임
