@@ -48,6 +48,13 @@ public class TodoService {
         todoRepository.delete(todo);
     }
 
+    public void turnCompleted(Long todoId, User user) {
+        Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(IllegalArgumentException::new);
+        validateUser(user, todo.getUser());
+        todo.changeCompleted();
+    }
+
     private void validateUser(User user1, User user2) {
         if (!user1.equals(user2)) {
             throw new IllegalArgumentException("권한이 없습니다.");

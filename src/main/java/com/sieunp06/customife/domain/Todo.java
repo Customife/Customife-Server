@@ -44,6 +44,10 @@ public class Todo {
     @Column(name = "date")
     private Date date;
 
+    public void changeCompleted() {
+        isCompleted = !isCompleted;
+    }
+
     protected Todo() {}
 
     @Builder
