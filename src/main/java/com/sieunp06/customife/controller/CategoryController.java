@@ -30,11 +30,11 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategory(user));
     }
 
-    @GetMapping("{categoryId}/detail")
+    @GetMapping("{categoryName}/detail")
     public ResponseEntity<CategoryResponseDto> getDetailCategory(
-            @PathVariable Long categoryId,
+            @PathVariable String categoryName,
             @AuthenticationPrincipal User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getDetailCategory(categoryId, user));
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getDetailCategory(categoryName, user));
     }
 
     @PostMapping("/add")
@@ -45,18 +45,18 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseDto);
     }
 
-    @PatchMapping("/{categoryId}/update")
+    @PatchMapping("/{categoryName}/update")
     public ResponseEntity<CategoryResponseDto> updateCategory(
-            @PathVariable Long categoryId,
+            @PathVariable String categoryName,
             @RequestBody CategoryDto categoryDto,
             @AuthenticationPrincipal User user) {
-        CategoryResponseDto categoryResponseDto = categoryService.updateCategory(categoryId, categoryDto, user);
+        CategoryResponseDto categoryResponseDto = categoryService.updateCategory(categoryName, categoryDto, user);
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDto);
     }
 
     @DeleteMapping("{categoryId}/delete")
-    public ResponseEntity<Long> deleteCategory(@PathVariable Long categoryId, @AuthenticationPrincipal User user) {
-        categoryService.deleteCategory(categoryId, user);
+    public ResponseEntity<Long> deleteCategory(@PathVariable String categoryName, @AuthenticationPrincipal User user) {
+        categoryService.deleteCategory(categoryName, user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

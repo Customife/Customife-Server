@@ -39,16 +39,16 @@ public class MilestoneService {
         return MilestoneResponseDto.from(milestone);
     }
 
-    public MilestoneResponseDto updateMilestone(User user, Long milestoneId, MilestoneDto milestoneDto) {
-        Milestone milestone = milestoneRepository.findById(milestoneId)
+    public MilestoneResponseDto updateMilestone(User user, String milestoneName, MilestoneDto milestoneDto) {
+        Milestone milestone = milestoneRepository.findByUserAndName(user, milestoneName)
                 .orElseThrow(IllegalArgumentException::new);
         validateUser(user, milestone.getUser());
         milestone.update(milestoneDto.getName(), milestoneDto.getColorCode());
         return MilestoneResponseDto.from(milestone);
     }
 
-    public void deleteMilestone(User user, Long milestoneId) {
-        Milestone milestone = milestoneRepository.findById(milestoneId)
+    public void deleteMilestone(User user, String milestoneName) {
+        Milestone milestone = milestoneRepository.findByUserAndName(user, milestoneName)
                 .orElseThrow(IllegalArgumentException::new);
         validateUser(user, milestone.getUser());
         milestoneRepository.delete(milestone);

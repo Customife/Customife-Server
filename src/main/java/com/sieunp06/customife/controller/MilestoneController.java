@@ -37,21 +37,21 @@ public class MilestoneController {
         return ResponseEntity.status(HttpStatus.CREATED).body(milestoneService.addMilestone(user, milestoneDto));
     }
 
-    @PatchMapping("{milestoneId}/update")
+    @PatchMapping("{milestoneName}/update")
     public ResponseEntity<MilestoneResponseDto> updateMilestone(
             @AuthenticationPrincipal User user,
-            @PathVariable Long milestoneId,
+            @PathVariable String milestoneName,
             @RequestBody MilestoneDto milestoneDto) {
-        MilestoneResponseDto milestoneResponseDto = milestoneService.updateMilestone(user, milestoneId, milestoneDto);
+        MilestoneResponseDto milestoneResponseDto = milestoneService.updateMilestone(user, milestoneName, milestoneDto);
         return ResponseEntity.status(HttpStatus.OK).body(milestoneResponseDto);
     }
 
-    @DeleteMapping("{milestoneId}/delete")
+    @DeleteMapping("{milestoneName}/delete")
     public ResponseEntity<Long> deleteMilestone(
             @AuthenticationPrincipal User user,
-            @PathVariable Long milestoneId
+            @PathVariable String milestoneName
     ) {
-        milestoneService.deleteMilestone(user, milestoneId);
+        milestoneService.deleteMilestone(user, milestoneName);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

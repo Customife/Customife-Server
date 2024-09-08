@@ -5,6 +5,7 @@ import com.sieunp06.customife.domain.User;
 import com.sieunp06.customife.dto.request.category.CategoryDto;
 import com.sieunp06.customife.dto.response.category.CategoryResponseDto;
 import com.sieunp06.customife.repository.CategoryRepository;
+import com.sieunp06.customife.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,16 +18,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     public List<CategoryResponseDto> getCategory(User user) {
-        return categoryRepository.findByUser(user).stream()
+        User ownUser = userRepository.findByUserEmail(user.getUsername())
+                .orElseThrow(IllegalArgumentException::new);
+        return categoryRepository.findByUser(ownUser).stream()
                 .map(CategoryResponseDto::from)
                 .collect(Collectors.toList());
     }
 
-    public CategoryResponseDto getDetailCategory(Long categoryId, User user) {
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(IllegalStateException::new);
+    public CategoryResponseDto getDetailCategory(String categoryName, User user) {
+        Category category = categoryRepository.findByUserAndName(user, categoryName)
+                .orElseThrow(IllegalArgumentException::new);
         validateUser(category.getUser(), user);
         return CategoryResponseDto.from(category);
     }
@@ -46,16 +50,16 @@ public class CategoryService {
         return CategoryResponseDto.from(category);
     }
 
-    public CategoryResponseDto updateCategory(Long categoryId, CategoryDto categoryDto, User user) {
-        Category category = categoryRepository.findById(categoryId)
+    public CategoryResponseDto updateCategory(String categoryName, CategoryDto categoryDto, User user) {
+        Category category = categoryRepository.findByUserAndName(user, categoryName)
                 .orElseThrow(IllegalStateException::new);
         validateUser(category.getUser(), user);
         category.update(categoryDto.getName(), categoryDto.getColorCode());
         return CategoryResponseDto.from(category);
     }
 
-    public void deleteCategory(Long categoryId, User user) {
-        Category category = categoryRepository.findById(categoryId)
+    public void deleteCategory(String categoryName, User user) {
+        Category category = categoryRepository.findByUserAndName(user, categoryName)
                         .orElseThrow(IllegalArgumentException::new);
         validateUser(category.getUser(), user);
         categoryRepository.delete(category);
